@@ -82,20 +82,11 @@ interface Content {
     ]
   },
   {
-    created: 3,
-    data: [
-      {
-        revised_prompt: "morn morn morn",
-        url: "/assets/arne.jpg"
-      }
-    ]
-  },
-  {
     created: 4,
     data: [
       {
         revised_prompt: "morn morn morn",
-        url: "/assets/arne.png"
+        url: "/assets/arne.jpg"
       }
     ]
   },
@@ -104,12 +95,21 @@ interface Content {
     data: [
       {
         revised_prompt: "morn morn morn",
-        url: "/assets/arne.jpg"
+        url: "/assets/arne.png"
       }
     ]
   },
   {
     created: 6,
+    data: [
+      {
+        revised_prompt: "morn morn morn",
+        url: "/assets/arne.jpg"
+      }
+    ]
+  },
+  {
+    created: 7,
     data: [
       {
         revised_prompt: "morn morn morn",
