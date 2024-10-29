@@ -6,11 +6,13 @@ import { GeneratedImages } from "@/components/GeneratedImages";
 import { ImageCarousel } from "@/components/ImageCarousel";
 import { QuestionModal } from "@/components/Modal";
 import { Sidebar } from "@/components/Sidebar";
+import { Separator } from "@/components/ui/separator";
 import jsPDF from "jspdf";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import ReactDOMServer from 'react-dom/server';
+
 
 const API_KEY = process.env.NEXT_PUBLIC_API_KEY
 const AI_MODEL = "gpt-4o"
@@ -560,7 +562,7 @@ export default function Home() {
 
 
   return (
-    <main className="relative min-h-full bg-white">
+    <main className="relative min-h-screen bg-white bg-dot-blue-950/[0.4]">
       {/* SIDEBAR PERSONAS */}
       <Sidebar />
 
@@ -580,7 +582,7 @@ export default function Home() {
         </div>
 
         {/* User input section */}
-        <div className="min-h-[400px] shadow-md rounded">
+        <div className="min-h-[400px] shadow-md rounded bg-white">
           <div className="w-full">
             <form className="px-8 pt-6 pb-8">
               <div className="mb-4 flex justify-center flex-col space-y-2">
@@ -627,7 +629,7 @@ export default function Home() {
                 }
                 <GenerateButton text="Eksporter PDF" onClick={() => setModalOpen(true)} icon={<PDFIcon />}/>
                 <GenerateButton text="Fjern lagrede bilder" 
-                onClick={() => removeLocalStorage("generatedImages")}/>
+                onClick={() => removeLocalStorage("generatedImages")} icon={<TrashIcon />}/>
                 <Link href={"/maskin"} className="py-2.5 px-5 me-2 text-sm w-full font-medium text-gray-900 bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 hover:cursor-pointer focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 inline-flex items-center hover:disabled:cursor-not-allowed hover:disabled:bg-none">BETA: masking</Link>
               </div>
             </form>
@@ -637,8 +639,7 @@ export default function Home() {
           }
         </div>
 
-        {/* Seperasjonslinje */}
-        <div className="col-span-3 border-t border-gray-300 mt-4" /> 
+        <Separator className="col-span-3 bg-blue-200"/>
 
         {/* Genererte bilder */}
         <div className="col-span-3">
@@ -696,6 +697,15 @@ const PersonaIcon = () => {
     <svg className="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
       <path fillRule="evenodd" d="M4 4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2H4Zm10 5a1 1 0 0 1 1-1h3a1 1 0 1 1 0 2h-3a1 1 0 0 1-1-1Zm0 3a1 1 0 0 1 1-1h3a1 1 0 1 1 0 2h-3a1 1 0 0 1-1-1Zm0 3a1 1 0 0 1 1-1h3a1 1 0 1 1 0 2h-3a1 1 0 0 1-1-1Zm-8-5a3 3 0 1 1 6 0 3 3 0 0 1-6 0Zm1.942 4a3 3 0 0 0-2.847 2.051l-.044.133-.004.012c-.042.126-.055.167-.042.195.006.013.02.023.038.039.032.025.08.064.146.155A1 1 0 0 0 6 17h6a1 1 0 0 0 .811-.415.713.713 0 0 1 .146-.155c.019-.016.031-.026.038-.04.014-.027 0-.068-.042-.194l-.004-.012-.044-.133A3 3 0 0 0 10.059 14H7.942Z" clipRule="evenodd"/>
     </svg>
+  )
+}
+
+const TrashIcon = () => {
+  return (
+    <svg className="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+    <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"/>
+    </svg>
+
   )
 }
 
