@@ -4,6 +4,7 @@ const nextConfig = {
     domains: [
       "www.kingsporttn.gov",
       "oaidalleapiprodscus.blob.core.windows.net",
+      "images.pexels.com",
     ],
   },
 };
