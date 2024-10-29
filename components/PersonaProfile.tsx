@@ -98,7 +98,7 @@ const ArneBrimiProfile: React.FC = () => {
   const [image, setImage] = useState<string | undefined>(undefined)
   
   return (      
-    <div className="max-w-4xl mx-auto bg-slate-200 shadow-2xl rounded-tr-lg rounded-br-lg p-5 pr-20 min-h-screen">
+    <div className="max-w-4xl mx-auto bg-blue-200 shadow-2xl rounded-tr-lg rounded-br-lg p-5 pr-20 min-h-screen">
       {personaData? 
         <PersonaComponent personaData={personaData} image={image}/>
         :
