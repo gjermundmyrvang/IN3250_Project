@@ -2,7 +2,8 @@
 
 ## Setup
 
-1. **Open terminal and run the following command:**
+### Install dependencies
+**Open terminal and run the following command:**
 
    ```bash
    npm install
@@ -10,16 +11,16 @@
    yarn install
    or similar
    ```
+### API KEY
+**Create an .env.local file inn root directory**
 
-2. **Create an .env.local file inn root directory**
-
-3. **Inside the .env.local file, add your OpenAI key:**
+**Inside the .env.local file, add your OpenAI key:**
 
    ```
    NEXT_PUBLIC_API_KEY=YOUR_API_KEY_HERE
    ```
-
-4. **Run project with the following command:**
+#### Running the webpage
+**Run project with the following command:**
    ```
    npm run dev
    ```
