@@ -4,13 +4,15 @@ import { GenerateButton, LoadingButton } from "@/components/Buttons";
 import ExpandableTextarea from "@/components/ExpandableTextArea";
 import { GeneratedImages } from "@/components/GeneratedImages";
 import { ImageCarousel } from "@/components/ImageCarousel";
+import { ImageHierarchy } from "@/components/ImageHierarchy";
 import { QuestionModal } from "@/components/Modal";
 import { Sidebar } from "@/components/Sidebar";
 import { Separator } from "@/components/ui/separator";
+import { ImageTree } from "@/types/ImageContent";
 import jsPDF from "jspdf";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import ReactDOMServer from 'react-dom/server';
 
 
@@ -119,7 +121,7 @@ interface Content {
       }
     ]
   },
-]  */
+] */
 
 
 
@@ -144,6 +146,7 @@ export default function Home() {
   const [messages, setMessages] = useState<Message[]>([])
   const [scenario, setScenario] = useState("")
   const [modalOpen, setModalOpen] = useState(false)
+  const imageTreeRef = useRef<ImageTree | null>(null);
 
   useEffect(() => {
     if (promptFromAI) {
@@ -322,6 +325,20 @@ export default function Home() {
             const response: Response = data
             console.log(response)
             setGeneratedResponses(prevResponses => [...prevResponses, response]);
+            const imageContent = {
+              id: `${response.created}`,
+              url: response.data[0].url,
+              prompt: currentPrompt,
+              parentId: `${selectedResponse?.created}`, 
+              children: []
+            }
+            if (imageTreeRef.current) {
+              // Add image to the tree if it exists
+              imageTreeRef.current.addImage(imageContent.parentId, imageContent);
+            } else {
+              // Initialize the tree with the first root node if no tree exists
+              imageTreeRef.current = new ImageTree(imageContent);
+            }
         
           } catch (e) {
             console.error("Failed to parse data", e)
@@ -541,6 +558,12 @@ export default function Home() {
               <Image src={image.url} id={image.name} layout="fill" objectFit="contain" alt="aiBilde"/> 
             </div>
           ))}
+        </div>
+
+        <div className="html2pdf__page-break" />
+        
+        <div className="w-full justify-start self-start">
+          <ImageHierarchy node={imageTreeRef.current?.root}/>
         </div>
       </div>
     );
