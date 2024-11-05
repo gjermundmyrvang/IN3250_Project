@@ -71,7 +71,7 @@ export const ImageHierarchy: React.FC<ImageHierarchyProps> = ({node = imagePath[
             <div className="flex items-center space-x-4">
               {/* Indentering basert på nivå i hierarkiet */}
               <span className="text-gray-500">{Array(level).fill("→ ").join("")}</span>
-              <div className='relative w-28 h-28'>
+              <div className='relative w-28 h-28 rounded-lg shadow-lg'>
                 <Image
                     src={node.url}
                     alt={node.prompt}
