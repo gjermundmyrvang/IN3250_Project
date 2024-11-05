@@ -3,7 +3,8 @@ import { Response } from '@/app/page';
 import '@digdir/designsystemet-css';
 import '@digdir/designsystemet-theme';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { GenerateButton } from './Buttons';
 
 
 
@@ -17,10 +18,32 @@ export const GeneratedImages = (
     }) => {
 
     const [isLoading, setIsLoading] = useState(true);
+    const [note, setNote] = useState("")
+
+    useEffect(() => {
+      if (typeof window !== "undefined") {
+        const savedNote = localStorage.getItem(`${selectedResponse?.created}`)
+        if (savedNote) {
+          setNote(savedNote)
+        }
+        else {
+          setNote("")
+        }
+      }
+    }, [selectedResponse])
+
     const handleImageLoad = () => {
       setIsLoading(false); // Skjuler plassholderen når bildet er lastet
     };
-      
+
+    const handleNote = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+      setNote(event.target.value)
+    }
+    const handleSaveNote = () => {
+      if (typeof window !== "undefined") {
+        localStorage.setItem(`${selectedResponse?.created}`, note)
+      }
+    }
 
   return (
     <div className="flex w-full justify-start md:flex-row sm:flex-row">
@@ -44,6 +67,16 @@ export const GeneratedImages = (
       <div className="flex-grow flex flex-col p-10 min-h-full rounded-tr-lg rounded-br-lg shadow-lg bg-white">
         {selectedResponse && 
           <div>
+            <div className='flex flex-col space-y-4 mb-4'>
+              <h1 className="font-extrabold text-2xl underline-offset-2 underline">Notater:</h1>
+              <textarea
+              value={note}
+              onChange={handleNote}
+              placeholder='Notater her...'
+              className='border p-5 rounded-lg'
+              />
+              <GenerateButton onClick={handleSaveNote} text='Lagre notat' />
+            </div>
             <h1 className="font-extrabold text-2xl underline-offset-2 underline">Siste endringer:</h1>
             <p>{currentPrompt}</p>
           </div>
